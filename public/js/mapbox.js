@@ -2,8 +2,7 @@
 const locations = JSON.parse(document.getElementById('map').dataset.locations);
 console.log(locations);
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoicGl5dXNoeWFkdiIsImEiOiJjbWVhNGVlZDEwdjR6MmtzODdqaWp2ZnFxIn0.eJRMxMQ799NYBm2ABBoDyw';
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
 
 const map = new mapboxgl.Map({
   container: 'map', // container ID
