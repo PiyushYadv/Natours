@@ -7,8 +7,9 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
-
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const viewRouter = require('./routes/viewRoutes');
@@ -30,40 +31,40 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.options('*', cors());
 
-// app.use(helmet());
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'"],
-//       scriptSrc: [
-//         "'self'",
-//         'http://127.0.0.1:3000',
-//         'https://api.mapbox.com',
-//         'https://cdnjs.cloudflare.com',
-//         'https://js.stripe.com',
-//         'https://checkout.stripe.com',
-//       ],
-//       styleSrc: [
-//         "'self'",
-//         "'unsafe-inline'",
-//         'https://api.mapbox.com',
-//         'https://fonts.googleapis.com',
-//       ],
-//       connectSrc: [
-//         "'self'",
-//         'http://127.0.0.1:3000',
-//         'https://api.mapbox.com',
-//         'https://events.mapbox.com',
-//       ],
-//       frameSrc: ["'self'", 'https://js.stripe.com'],
-//       imgSrc: ["'self'", 'data:', 'blob:', 'https://api.mapbox.com'],
-//       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-//       workerSrc: ["'self'", 'blob:'],
-//       objectSrc: ["'none'"],
-//       upgradeInsecureRequests: [],
-//     },
-//   }),
-// );
+app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        'http://127.0.0.1:3000',
+        'https://api.mapbox.com',
+        'https://cdnjs.cloudflare.com',
+        'https://js.stripe.com',
+        'https://checkout.stripe.com',
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        'https://api.mapbox.com',
+        'https://fonts.googleapis.com',
+      ],
+      connectSrc: [
+        "'self'",
+        'http://127.0.0.1:3000',
+        'https://api.mapbox.com',
+        'https://events.mapbox.com',
+      ],
+      frameSrc: ["'self'", 'https://js.stripe.com'],
+      imgSrc: ["'self'", 'data:', 'blob:', 'https://api.mapbox.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      workerSrc: ["'self'", 'blob:'],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  }),
+);
 
 // Development Logging
 if (process.env.NODE_ENV === 'development') {
@@ -103,6 +104,8 @@ app.use(
     ],
   }),
 );
+
+app.use(compression());
 
 // Test middleware
 app.use((req, res, next) => {
