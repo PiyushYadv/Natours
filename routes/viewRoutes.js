@@ -9,7 +9,6 @@ const {
   alerts,
 } = require('../controllers/viewsController');
 const { isLoggedIn, protect } = require('../controllers/authController');
-const { createBooking } = require('../controllers/bookingController');
 // const { createBookingCheckout } = require('../controllers/bookingController');
 
 const router = express.Router();
