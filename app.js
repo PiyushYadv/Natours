@@ -31,7 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
 app.use(cors());
+// Access-Control-Allow-Origin *
+// app.use(cors({ origin: 'https://www.natours.com' }));
 app.options('*', cors());
+app.options('/webhook-checkout', cors());
 
 app.use(helmet());
 app.use(
