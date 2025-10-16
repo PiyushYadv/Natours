@@ -4,6 +4,18 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    const doc = await Model.create(req.body);
+
+    res.status(201).json({
+      status: 'success',
+      data: {
+        data: doc,
+      },
+    });
+  });
+
+exports.getAll = (Model) =>
+  catchAsync(async (req, res, next) => {
     // EXECUTE QUERY
 
     // To allow for nested GET Reviews on tour
@@ -24,19 +36,6 @@ exports.createOne = (Model) =>
     res.status(200).json({
       status: 'success',
       requestedAt: req.requestTime,
-      results: doc.length,
-      data: {
-        data: doc,
-      },
-    });
-  });
-
-exports.getAll = (Model) =>
-  catchAsync(async (req, res, next) => {
-    const doc = await Model.find();
-
-    res.status(200).json({
-      status: 'success',
       results: doc.length,
       data: {
         data: doc,
