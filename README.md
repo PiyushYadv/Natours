@@ -199,7 +199,7 @@ App will run at 👉 http://localhost:3000
 - MongoDB Atlas for the cloud database
 
 Live URL:
-➡️ https://natours-api.onrender.com
+➡️ https://natours-i1aa.onrender.com/
 
 ---
 
